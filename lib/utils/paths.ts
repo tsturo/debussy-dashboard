@@ -24,10 +24,26 @@ export function getMailboxPath(agent?: string): string {
   const projectPath = getProjectPath();
 
   if (agent) {
+    if (path.isAbsolute(agent) || agent.includes('..')) {
+      throw new Error('Invalid agent path: absolute paths and parent directory references are not allowed');
+    }
     return path.join(projectPath, '.claude', 'mailbox', agent);
   }
 
   return path.join(projectPath, '.claude', 'mailbox');
+}
+
+export function getLogsPath(agent?: string): string {
+  const projectPath = getProjectPath();
+
+  if (agent) {
+    if (path.isAbsolute(agent) || agent.includes('..')) {
+      throw new Error('Invalid agent path: absolute paths and parent directory references are not allowed');
+    }
+    return path.join(projectPath, '.claude', 'logs', agent);
+  }
+
+  return path.join(projectPath, '.claude', 'logs');
 }
 
 export function validateProjectPath(pathToValidate: string): PathValidationResult {

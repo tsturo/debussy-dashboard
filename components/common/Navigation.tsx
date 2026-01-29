@@ -9,6 +9,7 @@ const navItems = [
   { href: '/pipeline', label: 'Pipeline' },
   { href: '/metrics', label: 'Metrics' },
   { href: '/mailbox', label: 'Mailbox' },
+  { href: '/logs', label: 'Logs' },
 ];
 
 export default function Navigation() {

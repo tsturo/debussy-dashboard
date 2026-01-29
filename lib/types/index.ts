@@ -2,6 +2,7 @@ export * from './agent';
 export * from './message';
 export * from './bead';
 export * from './stats';
+export * from './logs';
 
 export interface ApiError {
   error: string;

@@ -1,4 +1,4 @@
-import { AgentType, BeadStatus, BeadType, Message, Bead } from '../types';
+import { AgentType, BeadStatus, BeadType, Message, Bead, LogLevel, LogCategory, LogEntry } from '../types';
 
 export const VALID_AGENTS: AgentType[] = [
   'conductor',
@@ -71,4 +71,37 @@ export function isValidBeadId(id: string): boolean {
 
 export function sanitizeShellArg(arg: string): string {
   return arg.replace(/[^a-zA-Z0-9._-]/g, '');
+}
+
+export const VALID_LOG_LEVELS: LogLevel[] = ['debug', 'info', 'warn', 'error'];
+
+export const VALID_LOG_CATEGORIES: LogCategory[] = [
+  'system',
+  'task',
+  'communication',
+  'error',
+  'performance',
+];
+
+export function isValidLogLevel(level: string): level is LogLevel {
+  return VALID_LOG_LEVELS.includes(level as LogLevel);
+}
+
+export function isValidLogCategory(category: string): category is LogCategory {
+  return VALID_LOG_CATEGORIES.includes(category as LogCategory);
+}
+
+export function validateLogEntry(data: any): data is LogEntry {
+  return (
+    typeof data === 'object' &&
+    data !== null &&
+    typeof data.id === 'string' &&
+    typeof data.timestamp === 'string' &&
+    isValidAgent(data.agent) &&
+    isValidLogLevel(data.level) &&
+    isValidLogCategory(data.category) &&
+    typeof data.message === 'string' &&
+    (data.context === undefined || typeof data.context === 'object') &&
+    (data.metadata === undefined || typeof data.metadata === 'object')
+  );
 }
