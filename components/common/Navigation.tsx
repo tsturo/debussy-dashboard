@@ -10,6 +10,7 @@ const navItems = [
   { href: '/metrics', label: 'Metrics' },
   { href: '/mailbox', label: 'Mailbox' },
   { href: '/logs', label: 'Logs' },
+  { href: '/activity', label: 'Activity' },
 ];
 
 export default function Navigation() {
