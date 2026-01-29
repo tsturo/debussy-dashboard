@@ -4,11 +4,23 @@ export const VALID_AGENTS: AgentType[] = [
   'conductor',
   'architect',
   'developer',
-  'developer2',
   'tester',
   'reviewer',
   'integrator',
 ];
+
+export const AGENT_LIMITS: Record<AgentType, number> = {
+  conductor: 1,
+  architect: 2,
+  developer: 2,
+  tester: 2,
+  reviewer: 2,
+  integrator: 1,
+};
+
+export function getAgentLimit(agent: AgentType): number {
+  return AGENT_LIMITS[agent];
+}
 
 export const VALID_BEAD_STATUSES: BeadStatus[] = ['open', 'in_progress', 'closed'];
 

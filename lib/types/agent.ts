@@ -2,7 +2,6 @@ export type AgentType =
   | 'conductor'
   | 'architect'
   | 'developer'
-  | 'developer2'
   | 'tester'
   | 'reviewer'
   | 'integrator';

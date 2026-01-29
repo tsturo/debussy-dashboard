@@ -15,7 +15,6 @@ const agentIcons: Record<AgentType, string> = {
   conductor: '🎼',
   architect: '🏛️',
   developer: '💻',
-  developer2: '⚙️',
   tester: '🧪',
   reviewer: '👁️',
   integrator: '🔗',
