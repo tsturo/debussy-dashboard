@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import Navigation from '@/components/common/Navigation';
 import { QueryProvider } from '@/lib/providers/QueryProvider';
+import { ThemeProvider } from '@/lib/providers/ThemeProvider';
 
 export const metadata: Metadata = {
   title: 'Debussy Dashboard',
@@ -16,10 +17,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <QueryProvider>
-          <Navigation />
-          {children}
-        </QueryProvider>
+        <ThemeProvider>
+          <QueryProvider>
+            <Navigation />
+            {children}
+          </QueryProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
