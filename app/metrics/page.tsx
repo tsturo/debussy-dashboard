@@ -139,8 +139,8 @@ export default function MetricsPage() {
   if (loading) {
     return (
       <div className="p-8">
-        <h1 className="text-3xl font-bold mb-4">Metrics Dashboard</h1>
-        <p className="text-gray-600">Loading metrics...</p>
+        <h1 className="text-3xl font-bold mb-4 dark:text-white">Metrics Dashboard</h1>
+        <p className="text-gray-600 dark:text-gray-400">Loading metrics...</p>
       </div>
     );
   }
@@ -148,23 +148,23 @@ export default function MetricsPage() {
   return (
     <div className="p-8">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Metrics Dashboard</h1>
+        <h1 className="text-3xl font-bold dark:text-white">Metrics Dashboard</h1>
         <div className="flex gap-2">
           <button
             onClick={() => setDateRange(7)}
-            className={`px-3 py-1 rounded ${dateRange === 7 ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+            className={`px-3 py-1 rounded ${dateRange === 7 ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100'}`}
           >
             7 days
           </button>
           <button
             onClick={() => setDateRange(14)}
-            className={`px-3 py-1 rounded ${dateRange === 14 ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+            className={`px-3 py-1 rounded ${dateRange === 14 ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100'}`}
           >
             14 days
           </button>
           <button
             onClick={() => setDateRange(30)}
-            className={`px-3 py-1 rounded ${dateRange === 30 ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+            className={`px-3 py-1 rounded ${dateRange === 30 ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100'}`}
           >
             30 days
           </button>
@@ -172,14 +172,14 @@ export default function MetricsPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white p-6 rounded-lg shadow">
-          <h2 className="text-xl font-semibold mb-4">Tasks Per Day</h2>
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+          <h2 className="text-xl font-semibold mb-4 dark:text-white">Tasks Per Day</h2>
           <ResponsiveContainer width="100%" height={300}>
             <LineChart data={getTasksPerDay()}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="date" />
-              <YAxis />
-              <Tooltip />
+              <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+              <XAxis dataKey="date" stroke="#9ca3af" />
+              <YAxis stroke="#9ca3af" />
+              <Tooltip contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', color: '#fff' }} />
               <Legend />
               <Line type="monotone" dataKey="created" stroke="#3b82f6" name="Created" />
               <Line type="monotone" dataKey="completed" stroke="#10b981" name="Completed" />
@@ -187,8 +187,8 @@ export default function MetricsPage() {
           </ResponsiveContainer>
         </div>
 
-        <div className="bg-white p-6 rounded-lg shadow">
-          <h2 className="text-xl font-semibold mb-4">Task Status Distribution</h2>
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+          <h2 className="text-xl font-semibold mb-4 dark:text-white">Task Status Distribution</h2>
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
               <Pie
@@ -205,26 +205,26 @@ export default function MetricsPage() {
                   <Cell key={`cell-${index}`} fill={entry.color} />
                 ))}
               </Pie>
-              <Tooltip />
+              <Tooltip contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', color: '#fff' }} />
             </PieChart>
           </ResponsiveContainer>
         </div>
 
-        <div className="bg-white p-6 rounded-lg shadow">
-          <h2 className="text-xl font-semibold mb-4">Average Time Per Stage (hours)</h2>
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+          <h2 className="text-xl font-semibold mb-4 dark:text-white">Average Time Per Stage (hours)</h2>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={getAverageTimePerStage()}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="stage" />
-              <YAxis />
-              <Tooltip />
+              <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+              <XAxis dataKey="stage" stroke="#9ca3af" />
+              <YAxis stroke="#9ca3af" />
+              <Tooltip contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', color: '#fff' }} />
               <Bar dataKey="hours" fill="#8b5cf6" />
             </BarChart>
           </ResponsiveContainer>
         </div>
 
-        <div className="bg-white p-6 rounded-lg shadow">
-          <h2 className="text-xl font-semibold mb-4">Success/Failure Rates</h2>
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+          <h2 className="text-xl font-semibold mb-4 dark:text-white">Success/Failure Rates</h2>
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
               <Pie
@@ -241,37 +241,37 @@ export default function MetricsPage() {
                   <Cell key={`cell-${index}`} fill={entry.color} />
                 ))}
               </Pie>
-              <Tooltip />
+              <Tooltip contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', color: '#fff' }} />
             </PieChart>
           </ResponsiveContainer>
         </div>
 
-        <div className="bg-white p-6 rounded-lg shadow">
-          <h2 className="text-xl font-semibold mb-4">Agent Utilization</h2>
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+          <h2 className="text-xl font-semibold mb-4 dark:text-white">Agent Utilization</h2>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={getAgentUtilization()}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="agent" />
-              <YAxis />
-              <Tooltip />
+              <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+              <XAxis dataKey="agent" stroke="#9ca3af" />
+              <YAxis stroke="#9ca3af" />
+              <Tooltip contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', color: '#fff' }} />
               <Bar dataKey="tasks" fill="#06b6d4" />
             </BarChart>
           </ResponsiveContainer>
         </div>
 
-        <div className="bg-white p-6 rounded-lg shadow">
-          <h2 className="text-xl font-semibold mb-4">Bottlenecks (Blocked Tasks)</h2>
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+          <h2 className="text-xl font-semibold mb-4 dark:text-white">Bottlenecks (Blocked Tasks)</h2>
           <div className="space-y-3">
             {getBottlenecks().length === 0 ? (
-              <p className="text-gray-500">No blocked tasks</p>
+              <p className="text-gray-500 dark:text-gray-400">No blocked tasks</p>
             ) : (
               getBottlenecks().map(task => (
-                <div key={task.id} className="flex items-center justify-between p-3 bg-red-50 rounded">
+                <div key={task.id} className="flex items-center justify-between p-3 bg-red-50 dark:bg-red-900/20 rounded">
                   <div className="flex-1">
-                    <div className="font-medium text-sm">{task.id}</div>
-                    <div className="text-sm text-gray-600">{task.title}</div>
+                    <div className="font-medium text-sm dark:text-gray-200">{task.id}</div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400">{task.title}</div>
                   </div>
-                  <span className="text-xs px-2 py-1 bg-red-200 rounded">P{task.priority}</span>
+                  <span className="text-xs px-2 py-1 bg-red-200 dark:bg-red-800 rounded dark:text-red-100">P{task.priority}</span>
                 </div>
               ))
             )}
@@ -280,21 +280,21 @@ export default function MetricsPage() {
       </div>
 
       <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-blue-50 p-4 rounded-lg">
-          <div className="text-sm text-gray-600">Total Tasks</div>
-          <div className="text-2xl font-bold text-blue-600">{stats?.total_beads || 0}</div>
+        <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+          <div className="text-sm text-gray-600 dark:text-gray-400">Total Tasks</div>
+          <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">{stats?.total_beads || 0}</div>
         </div>
-        <div className="bg-green-50 p-4 rounded-lg">
-          <div className="text-sm text-gray-600">Completed</div>
-          <div className="text-2xl font-bold text-green-600">{stats?.beads_by_status.closed || 0}</div>
+        <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
+          <div className="text-sm text-gray-600 dark:text-gray-400">Completed</div>
+          <div className="text-2xl font-bold text-green-600 dark:text-green-400">{stats?.beads_by_status.closed || 0}</div>
         </div>
-        <div className="bg-orange-50 p-4 rounded-lg">
-          <div className="text-sm text-gray-600">In Progress</div>
-          <div className="text-2xl font-bold text-orange-600">{stats?.beads_by_status.in_progress || 0}</div>
+        <div className="bg-orange-50 dark:bg-orange-900/20 p-4 rounded-lg">
+          <div className="text-sm text-gray-600 dark:text-gray-400">In Progress</div>
+          <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">{stats?.beads_by_status.in_progress || 0}</div>
         </div>
-        <div className="bg-red-50 p-4 rounded-lg">
-          <div className="text-sm text-gray-600">Blocked</div>
-          <div className="text-2xl font-bold text-red-600">{stats?.beads_by_status.blocked || 0}</div>
+        <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg">
+          <div className="text-sm text-gray-600 dark:text-gray-400">Blocked</div>
+          <div className="text-2xl font-bold text-red-600 dark:text-red-400">{stats?.beads_by_status.blocked || 0}</div>
         </div>
       </div>
     </div>

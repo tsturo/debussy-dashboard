@@ -141,14 +141,14 @@ export function KanbanBoard({ beads, onBeadUpdate }: KanbanBoardProps) {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="mb-4 p-4 bg-white rounded-lg shadow-sm border border-gray-200">
+      <div className="mb-4 p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
         <div className="flex flex-wrap gap-4 items-center">
           <div className="flex items-center gap-2">
-            <label className="text-sm font-medium text-gray-700">Priority:</label>
+            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Priority:</label>
             <select
               value={filterPriority ?? ''}
               onChange={(e) => setFilterPriority(e.target.value ? parseInt(e.target.value) : null)}
-              className="px-3 py-1 border border-gray-300 rounded-md text-sm"
+              className="px-3 py-1 border border-gray-300 dark:border-gray-600 rounded-md text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
             >
               <option value="">All</option>
               <option value="0">P0</option>
@@ -160,11 +160,11 @@ export function KanbanBoard({ beads, onBeadUpdate }: KanbanBoardProps) {
           </div>
 
           <div className="flex items-center gap-2">
-            <label className="text-sm font-medium text-gray-700">Assignee:</label>
+            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Assignee:</label>
             <select
               value={filterAssignee ?? ''}
               onChange={(e) => setFilterAssignee(e.target.value || null)}
-              className="px-3 py-1 border border-gray-300 rounded-md text-sm"
+              className="px-3 py-1 border border-gray-300 dark:border-gray-600 rounded-md text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
             >
               <option value="">All</option>
               {uniqueAssignees.map((assignee) => (
@@ -176,11 +176,11 @@ export function KanbanBoard({ beads, onBeadUpdate }: KanbanBoardProps) {
           </div>
 
           <div className="flex items-center gap-2">
-            <label className="text-sm font-medium text-gray-700">Sort by:</label>
+            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Sort by:</label>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
-              className="px-3 py-1 border border-gray-300 rounded-md text-sm"
+              className="px-3 py-1 border border-gray-300 dark:border-gray-600 rounded-md text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
             >
               <option value="priority">Priority</option>
               <option value="created">Created Date</option>

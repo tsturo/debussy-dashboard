@@ -53,39 +53,39 @@ export function TaskCard({ bead, isDragging }: TaskCardProps) {
       style={style}
       {...attributes}
       {...listeners}
-      className={`bg-white rounded-lg p-4 shadow-sm border-2 border-gray-200 cursor-grab active:cursor-grabbing hover:shadow-md transition-shadow ${
-        isDragging ? 'shadow-lg border-blue-400' : ''
+      className={`bg-white dark:bg-gray-700 rounded-lg p-4 shadow-sm border-2 border-gray-200 dark:border-gray-600 cursor-grab active:cursor-grabbing hover:shadow-md transition-shadow ${
+        isDragging ? 'shadow-lg border-blue-400 dark:border-blue-500' : ''
       }`}
     >
       <Link href={`/task/${bead.id}`} onClick={(e) => e.stopPropagation()} className="block">
         <div className="flex items-start justify-between mb-2">
           <div className="flex items-center gap-2">
             <span className={`w-3 h-3 rounded-full ${typeColor}`}></span>
-            <span className="text-xs font-mono text-gray-500">{bead.id}</span>
+            <span className="text-xs font-mono text-gray-500 dark:text-gray-400">{bead.id}</span>
           </div>
           <span className={`text-xs px-2 py-1 rounded border font-medium ${priorityColor}`}>
             P{bead.priority}
           </span>
         </div>
 
-        <h4 className="text-sm font-semibold text-gray-900 mb-2 line-clamp-2">{bead.title}</h4>
+        <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-2 line-clamp-2">{bead.title}</h4>
 
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             {bead.assignee && (
-              <span className="text-xs px-2 py-1 bg-gray-100 rounded text-gray-700">
+              <span className="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-600 rounded text-gray-700 dark:text-gray-300">
                 @{bead.assignee}
               </span>
             )}
-            <span className="text-xs px-2 py-1 bg-gray-100 rounded text-gray-600 capitalize">
+            <span className="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-600 rounded text-gray-600 dark:text-gray-300 capitalize">
               {bead.type}
             </span>
           </div>
         </div>
 
         {bead.blocked_by && bead.blocked_by.length > 0 && (
-          <div className="mt-2 pt-2 border-t border-gray-200">
-            <span className="text-xs text-red-600 flex items-center gap-1">
+          <div className="mt-2 pt-2 border-t border-gray-200 dark:border-gray-600">
+            <span className="text-xs text-red-600 dark:text-red-400 flex items-center gap-1">
               <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                 <path
                   fillRule="evenodd"

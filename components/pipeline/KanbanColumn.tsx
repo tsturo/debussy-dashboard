@@ -18,10 +18,10 @@ export function KanbanColumn({ id, title, beads }: KanbanColumnProps) {
 
   return (
     <div className="flex flex-col w-80 flex-shrink-0">
-      <div className="bg-gray-100 rounded-t-lg px-4 py-3 border-b-2 border-gray-300">
-        <h3 className="font-semibold text-gray-800 flex items-center justify-between">
+      <div className="bg-gray-100 dark:bg-gray-700 rounded-t-lg px-4 py-3 border-b-2 border-gray-300 dark:border-gray-600">
+        <h3 className="font-semibold text-gray-800 dark:text-gray-200 flex items-center justify-between">
           <span>{title}</span>
-          <span className="text-sm font-normal text-gray-600 bg-white px-2 py-1 rounded">
+          <span className="text-sm font-normal text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-600 px-2 py-1 rounded">
             {beads.length}
           </span>
         </h3>
@@ -29,8 +29,8 @@ export function KanbanColumn({ id, title, beads }: KanbanColumnProps) {
 
       <div
         ref={setNodeRef}
-        className={`flex-1 bg-gray-50 rounded-b-lg p-3 space-y-3 min-h-[400px] transition-colors ${
-          isOver ? 'bg-blue-50 border-2 border-blue-300' : 'border-2 border-transparent'
+        className={`flex-1 bg-gray-50 dark:bg-gray-800 rounded-b-lg p-3 space-y-3 min-h-[400px] transition-colors ${
+          isOver ? 'bg-blue-50 dark:bg-blue-900/30 border-2 border-blue-300 dark:border-blue-600' : 'border-2 border-transparent'
         }`}
       >
         <SortableContext items={beads.map((b) => b.id)} strategy={verticalListSortingStrategy}>
