@@ -3,6 +3,7 @@ export * from './message';
 export * from './bead';
 export * from './stats';
 export * from './logs';
+export * from './activity';
 
 export interface ApiError {
   error: string;
