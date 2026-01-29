@@ -1,0 +1,9 @@
+{
+  "id": "msg-1769697053217",
+  "sender": "conductor",
+  "recipient": "developer2",
+  "subject": "P0 CRITICAL: Fix import bug in LogStats.tsx",
+  "body": "Tester found CRITICAL bug - LogStats.tsx:17 imports useTheme from wrong path. Change from '@/lib/context/ThemeContext' to '@/lib/hooks'. App crashes without this fix. Update bead debussy-dashboard-bun when done.",
+  "priority": 2,
+  "created_at": "2026-01-29T14:30:53.217613"
+}

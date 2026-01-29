@@ -1,0 +1,5 @@
+{"id":"log-1738163400000-dev001","timestamp":"2026-01-29T10:10:00.000Z","agent":"developer","level":"info","category":"task","message":"Starting implementation of feature X","context":{"bead_id":"debussy-dashboard-abc"},"metadata":{"session_id":"session-dev-1"}}
+{"id":"log-1738167000000-dev002","timestamp":"2026-01-29T11:10:00.000Z","agent":"developer","level":"debug","category":"system","message":"Reading file for analysis","context":{"file_path":"/components/Feature.tsx"}}
+{"id":"log-1738170600000-dev003","timestamp":"2026-01-29T12:10:00.000Z","agent":"developer","level":"warn","category":"task","message":"Potential code smell detected","context":{"file_path":"/utils/helper.ts","line_number":15}}
+{"id":"log-1738174200000-dev004","timestamp":"2026-01-29T13:10:00.000Z","agent":"developer","level":"error","category":"error","message":"Build failed with type errors","context":{"bead_id":"debussy-dashboard-abc"}}
+{"id":"log-1738177800000-dev005","timestamp":"2026-01-29T14:10:00.000Z","agent":"developer","level":"info","category":"task","message":"Feature implementation completed","context":{"bead_id":"debussy-dashboard-abc","duration_ms":14400000}}

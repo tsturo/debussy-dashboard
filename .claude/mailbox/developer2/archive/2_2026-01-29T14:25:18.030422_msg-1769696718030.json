@@ -1,0 +1,9 @@
+{
+  "id": "msg-1769696718030",
+  "sender": "conductor",
+  "recipient": "developer2",
+  "subject": "URGENT debussy-dashboard-bun: Fix bugs. 1) LogFilterControls.tsx:31-37 infinite re-render - fix useEffect deps. 2) API routes don't support array filters - fix to match useLogs hook. 3) Clear expandedLogs state when logs change in LogViewerPage.tsx",
+  "body": "",
+  "priority": 2,
+  "created_at": "2026-01-29T14:25:18.030422"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "msg-1769696463318",
+  "sender": "conductor",
+  "recipient": "reviewer",
+  "subject": "Start debussy-dashboard-c2c: Review agent log viewer code. Review lib/types/logs.ts, lib/utils/logFilters.ts, API routes, UI components in components/logs/, hooks. Check for bugs, security, best practices.",
+  "body": "",
+  "priority": 2,
+  "created_at": "2026-01-29T14:21:03.318948"
+}

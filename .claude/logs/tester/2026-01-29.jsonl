@@ -1,0 +1,3 @@
+{"id":"log-1738164000000-test001","timestamp":"2026-01-29T10:20:00.000Z","agent":"tester","level":"info","category":"task","message":"Starting test suite execution","context":{"bead_id":"debussy-dashboard-test-1"},"metadata":{"tags":["testing"]}}
+{"id":"log-1738167600000-test002","timestamp":"2026-01-29T11:20:00.000Z","agent":"tester","level":"error","category":"error","message":"Test case failed: Login flow","context":{"file_path":"/tests/auth.test.ts","line_number":25}}
+{"id":"log-1738171200000-test003","timestamp":"2026-01-29T12:20:00.000Z","agent":"tester","level":"info","category":"performance","message":"Performance benchmark completed","context":{"duration_ms":3500}}

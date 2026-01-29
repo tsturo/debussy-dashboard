@@ -1,0 +1,9 @@
+{
+  "id": "msg-1769696298294",
+  "sender": "conductor",
+  "recipient": "developer2",
+  "subject": "Final task debussy-dashboard-cwl: Add log viewer navigation and routing. Add /logs route and navigation link. Follow existing patterns from mailbox.",
+  "body": "",
+  "priority": 2,
+  "created_at": "2026-01-29T14:18:18.294286"
+}

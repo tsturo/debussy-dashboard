@@ -1,0 +1,9 @@
+{
+  "id": "msg-1769696463273",
+  "sender": "conductor",
+  "recipient": "tester",
+  "subject": "Start debussy-dashboard-9mm: Test agent log viewer feature. Test API endpoints (/api/logs, /api/logs/[agent]), UI components, filtering, search, export functionality, navigation. Verify against AGENT_LOG_VIEWER_ARCHITECTURE.md.",
+  "body": "",
+  "priority": 2,
+  "created_at": "2026-01-29T14:21:03.273766"
+}

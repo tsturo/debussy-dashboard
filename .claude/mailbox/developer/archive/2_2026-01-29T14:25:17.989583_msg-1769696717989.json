@@ -1,0 +1,9 @@
+{
+  "id": "msg-1769696717989",
+  "sender": "conductor",
+  "recipient": "developer",
+  "subject": "URGENT debussy-dashboard-7u1: Fix security vulnerabilities. 1) Add path traversal protection in getLogsPath() - reject '..' and absolute paths. 2) Fix CSV formula injection in logFilters.ts:117 - escape cells starting with =,+,-,@",
+  "body": "",
+  "priority": 2,
+  "created_at": "2026-01-29T14:25:17.989583"
+}
