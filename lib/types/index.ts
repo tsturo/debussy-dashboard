@@ -4,6 +4,7 @@ export * from './bead';
 export * from './stats';
 export * from './logs';
 export * from './activity';
+export * from './timeline';
 
 export interface ApiError {
   error: string;

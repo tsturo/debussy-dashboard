@@ -85,6 +85,7 @@ function getRelativeTime(timestamp: string): string {
 export function ActivityFeed({ events, autoScroll = false }: ActivityFeedProps) {
   const [visibleEvents, setVisibleEvents] = useState<ActivityEvent[]>([]);
   const [newEventIds, setNewEventIds] = useState<Set<string>>(new Set());
+  const [expandedEventId, setExpandedEventId] = useState<string | null>(null);
 
   useEffect(() => {
     const newIds = new Set<string>();
@@ -104,6 +105,10 @@ export function ActivityFeed({ events, autoScroll = false }: ActivityFeedProps) 
       return () => clearTimeout(timer);
     }
   }, [events, visibleEvents]);
+
+  const handleEventClick = (eventId: string) => {
+    setExpandedEventId(expandedEventId === eventId ? null : eventId);
+  };
 
   if (visibleEvents.length === 0) {
     return (
@@ -136,10 +141,13 @@ export function ActivityFeed({ events, autoScroll = false }: ActivityFeedProps) 
           {visibleEvents.map((event, index) => {
             const config = eventConfig[event.type];
             const isNew = newEventIds.has(event.id);
+            const isExpanded = expandedEventId === event.id;
+            const hasMetadata = event.metadata && Object.keys(event.metadata).length > 0;
 
             return (
               <div
                 key={event.id}
+                onClick={() => hasMetadata && handleEventClick(event.id)}
                 className={`
                   relative overflow-hidden
                   rounded-xl border-l-4 ${config.borderColor}
@@ -147,13 +155,14 @@ export function ActivityFeed({ events, autoScroll = false }: ActivityFeedProps) 
                   backdrop-blur-sm
                   p-4
                   transition-all duration-500 ease-out
-                  ${isNew ? 'animate-slide-in' : 'animate-fade-in'}
-                  hover:shadow-lg ${config.glowColor}
-                  hover:scale-[1.01]
-                  cursor-pointer
+                  ${isNew ? 'animate-slide-in-bottom' : 'animate-fade-in-scale'}
+                  hover:shadow-xl ${config.glowColor}
+                  hover:scale-[1.02]
+                  ${hasMetadata ? 'cursor-pointer' : ''}
+                  ${isExpanded ? 'ring-2 ring-primary-500/50 dark:ring-primary-400/50' : ''}
                 `}
                 style={{
-                  animationDelay: isNew ? `${index * 50}ms` : '0ms',
+                  animationDelay: isNew ? `${index * 50}ms` : `${index * 30}ms`,
                 }}
               >
                 {isNew && (
@@ -161,31 +170,40 @@ export function ActivityFeed({ events, autoScroll = false }: ActivityFeedProps) 
                 )}
 
                 <div className="flex items-start space-x-3 relative z-10">
-                  <div className="text-2xl flex-shrink-0 mt-0.5 transform transition-transform duration-300 hover:scale-125">
+                  <div className="text-2xl flex-shrink-0 mt-0.5 transform transition-transform duration-300 hover:scale-125 hover:rotate-12">
                     {config.icon}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between mb-1">
-                      <span className={`text-sm font-bold uppercase tracking-wide ${config.color}`}>
+                      <span className={`text-sm font-bold uppercase tracking-wide ${config.color} transition-colors duration-300`}>
                         {event.agent}
                       </span>
-                      <span className="text-xs text-gray-500 dark:text-dark-400 font-medium px-2 py-1 bg-white/50 dark:bg-dark-800/50 rounded-full">
+                      <span className="text-xs text-gray-500 dark:text-dark-400 font-medium px-2.5 py-1 bg-white/60 dark:bg-dark-800/60 rounded-full backdrop-blur-sm transition-all duration-200 hover:bg-white/80 dark:hover:bg-dark-800/80">
                         {getRelativeTime(event.timestamp)}
                       </span>
                     </div>
                     <p className="text-sm text-gray-700 dark:text-dark-200 leading-relaxed">
                       {event.message}
                     </p>
-                    {event.metadata && Object.keys(event.metadata).length > 0 && (
-                      <div className="mt-2 flex flex-wrap gap-2">
-                        {Object.entries(event.metadata).map(([key, value]) => (
-                          <span
-                            key={key}
-                            className="text-xs px-2.5 py-1 rounded-lg bg-white/70 dark:bg-dark-800/70 backdrop-blur-sm text-gray-600 dark:text-dark-300 border border-gray-200/50 dark:border-dark-700/50"
-                          >
-                            {key}: {String(value)}
-                          </span>
-                        ))}
+                    {hasMetadata && (
+                      <div className={`overflow-hidden transition-all duration-300 ${isExpanded ? 'max-h-96 mt-3' : 'max-h-0 mt-0'}`}>
+                        <div className="flex flex-wrap gap-2 animate-fade-in">
+                          {Object.entries(event.metadata).map(([key, value], idx) => (
+                            <span
+                              key={key}
+                              className="text-xs px-2.5 py-1.5 rounded-lg bg-white/70 dark:bg-dark-800/70 backdrop-blur-sm text-gray-600 dark:text-dark-300 border border-gray-200/50 dark:border-dark-700/50 hover:bg-white/90 dark:hover:bg-dark-800/90 transition-all duration-200 animate-slide-in-bottom"
+                              style={{ animationDelay: `${idx * 50}ms` }}
+                            >
+                              <span className="font-semibold">{key}:</span> {String(value)}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    {hasMetadata && (
+                      <div className="mt-2 flex items-center gap-1 text-xs text-gray-500 dark:text-dark-400">
+                        <span className={`transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}>▼</span>
+                        <span>{isExpanded ? 'Hide details' : 'Show details'}</span>
                       </div>
                     )}
                   </div>

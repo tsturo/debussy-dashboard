@@ -28,27 +28,27 @@ export function ConnectionStatus({ isError, isLoading, errorMessage }: Connectio
 
   if (!isOnline) {
     return (
-      <div className="fixed bottom-4 right-4 bg-red-600 text-white px-4 py-2 rounded-lg shadow-lg flex items-center gap-2">
-        <span className="w-2 h-2 bg-white rounded-full"></span>
-        <span>No internet connection</span>
+      <div className="fixed bottom-4 right-4 bg-red-600 text-white px-4 py-3 rounded-lg shadow-2xl flex items-center gap-3 animate-slide-in-right border-2 border-red-400">
+        <span className="w-2.5 h-2.5 bg-white rounded-full animate-shake"></span>
+        <span className="font-medium">No internet connection</span>
       </div>
     );
   }
 
   if (isError) {
     return (
-      <div className="fixed bottom-4 right-4 bg-yellow-600 text-white px-4 py-2 rounded-lg shadow-lg flex items-center gap-2">
-        <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span>
-        <span>{errorMessage || 'Connection error - retrying...'}</span>
+      <div className="fixed bottom-4 right-4 bg-yellow-600 text-white px-4 py-3 rounded-lg shadow-2xl flex items-center gap-3 animate-slide-in-right border-2 border-yellow-400">
+        <span className="w-2.5 h-2.5 bg-white rounded-full animate-pulse"></span>
+        <span className="font-medium">{errorMessage || 'Connection error - retrying...'}</span>
       </div>
     );
   }
 
   if (isLoading) {
     return (
-      <div className="fixed bottom-4 right-4 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg flex items-center gap-2">
-        <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span>
-        <span>Loading...</span>
+      <div className="fixed bottom-4 right-4 bg-blue-600 text-white px-4 py-3 rounded-lg shadow-2xl flex items-center gap-3 animate-slide-in-right border-2 border-blue-400">
+        <span className="w-2.5 h-2.5 bg-white rounded-full animate-pulse"></span>
+        <span className="font-medium">Loading...</span>
       </div>
     );
   }
