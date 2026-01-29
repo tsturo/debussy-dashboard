@@ -20,10 +20,10 @@ export default function MessageList({
     return (
       <div className="space-y-4">
         {[...Array(3)].map((_, i) => (
-          <div key={i} className="bg-white rounded-lg shadow-md p-4 border border-gray-200 animate-pulse">
-            <div className="h-6 bg-gray-200 rounded w-1/4 mb-2"></div>
-            <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
-            <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+          <div key={i} className="bg-white dark:bg-dark-800 rounded-lg shadow-md p-4 border border-gray-200 dark:border-dark-700 animate-pulse">
+            <div className="h-6 bg-gray-200 dark:bg-dark-600 rounded w-1/4 mb-2"></div>
+            <div className="h-4 bg-gray-200 dark:bg-dark-600 rounded w-3/4 mb-2"></div>
+            <div className="h-4 bg-gray-200 dark:bg-dark-600 rounded w-1/2"></div>
           </div>
         ))}
       </div>
@@ -32,9 +32,9 @@ export default function MessageList({
 
   if (messages.length === 0) {
     return (
-      <div className="bg-white rounded-lg shadow-md p-8 border border-gray-200 text-center">
-        <p className="text-gray-500 text-lg">No messages found</p>
-        <p className="text-gray-400 text-sm mt-2">Try adjusting your filters</p>
+      <div className="bg-white dark:bg-dark-800 rounded-lg shadow-md p-8 border border-gray-200 dark:border-dark-700 text-center">
+        <p className="text-gray-500 dark:text-dark-300 text-lg">No messages found</p>
+        <p className="text-gray-400 dark:text-dark-400 text-sm mt-2">Try adjusting your filters</p>
       </div>
     );
   }
