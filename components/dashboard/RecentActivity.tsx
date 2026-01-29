@@ -21,11 +21,11 @@ export default function RecentActivity({ messages }: RecentActivityProps) {
 
   const getPriorityBadge = (priority: number) => {
     const colors = {
-      0: 'bg-red-100 text-red-800',
-      1: 'bg-orange-100 text-orange-800',
-      2: 'bg-yellow-100 text-yellow-800',
-      3: 'bg-blue-100 text-blue-800',
-      4: 'bg-gray-100 text-gray-800',
+      0: 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300',
+      1: 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300',
+      2: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300',
+      3: 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300',
+      4: 'bg-gray-100 dark:bg-dark-700 text-gray-800 dark:text-dark-300',
     };
     const labels = {
       0: 'P0',
@@ -54,39 +54,39 @@ export default function RecentActivity({ messages }: RecentActivityProps) {
     .slice(0, 10);
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-      <h2 className="text-xl font-bold text-gray-800 mb-4">Recent Activity</h2>
+    <div className="bg-white dark:bg-dark-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-dark-700">
+      <h2 className="text-xl font-bold text-gray-800 dark:text-dark-100 mb-4">Recent Activity</h2>
       <div className="space-y-3">
         {sortedMessages.length === 0 ? (
-          <p className="text-gray-500 text-center py-4">No recent messages</p>
+          <p className="text-gray-500 dark:text-dark-400 text-center py-4">No recent messages</p>
         ) : (
           sortedMessages.map((message) => (
             <div
               key={message.id}
-              className="border-l-4 border-blue-500 pl-4 py-2 bg-gray-50 rounded-r"
+              className="border-l-4 border-blue-500 dark:border-primary-500 pl-4 py-2 bg-gray-50 dark:bg-dark-900 rounded-r"
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center space-x-2 mb-1">
-                    <span className="text-xs font-semibold text-gray-600 uppercase">
+                    <span className="text-xs font-semibold text-gray-600 dark:text-dark-300 uppercase">
                       {message.sender}
                     </span>
-                    <span className="text-xs text-gray-400">→</span>
-                    <span className="text-xs font-semibold text-gray-600 uppercase">
+                    <span className="text-xs text-gray-400 dark:text-dark-500">→</span>
+                    <span className="text-xs font-semibold text-gray-600 dark:text-dark-300 uppercase">
                       {message.recipient}
                     </span>
                     {getPriorityBadge(message.priority)}
                   </div>
-                  <p className="text-sm font-medium text-gray-800 truncate">
+                  <p className="text-sm font-medium text-gray-800 dark:text-dark-100 truncate">
                     {message.subject}
                   </p>
                   {message.bead_id && (
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="text-xs text-gray-500 dark:text-dark-400 mt-1">
                       Bead: {message.bead_id}
                     </p>
                   )}
                 </div>
-                <span className="text-xs text-gray-500 ml-2 whitespace-nowrap">
+                <span className="text-xs text-gray-500 dark:text-dark-400 ml-2 whitespace-nowrap">
                   {formatTime(message.created_at)}
                 </span>
               </div>

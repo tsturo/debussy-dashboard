@@ -28,9 +28,9 @@ export default function AgentStatusCard({
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 border border-gray-200">
+    <div className="bg-white dark:bg-dark-900 rounded-lg shadow-md p-4 border border-gray-200 dark:border-dark-700">
       <div className="flex items-center justify-between mb-3">
-        <h3 className="text-lg font-semibold text-gray-800 capitalize">
+        <h3 className="text-lg font-semibold text-gray-800 dark:text-dark-100 capitalize">
           {agent}
         </h3>
         <div className="flex items-center space-x-2">
@@ -38,16 +38,16 @@ export default function AgentStatusCard({
             className={`w-3 h-3 rounded-full ${statusColors[status]}`}
             title={statusLabels[status]}
           />
-          <span className="text-sm text-gray-600">{statusLabels[status]}</span>
+          <span className="text-sm text-gray-600 dark:text-dark-300">{statusLabels[status]}</span>
         </div>
       </div>
 
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <span className="text-sm text-gray-600">Inbox</span>
+          <span className="text-sm text-gray-600 dark:text-dark-300">Inbox</span>
           <span
             className={`text-lg font-bold ${
-              inbox_count > 0 ? 'text-blue-600' : 'text-gray-400'
+              inbox_count > 0 ? 'text-blue-600 dark:text-primary-400' : 'text-gray-400 dark:text-dark-500'
             }`}
           >
             {inbox_count}
@@ -55,11 +55,11 @@ export default function AgentStatusCard({
         </div>
 
         {current_task && (
-          <div className="pt-2 border-t border-gray-200">
-            <span className="text-xs text-gray-500 block mb-1">
+          <div className="pt-2 border-t border-gray-200 dark:border-dark-700">
+            <span className="text-xs text-gray-500 dark:text-dark-400 block mb-1">
               Current Task
             </span>
-            <span className="text-sm text-gray-700 line-clamp-2">
+            <span className="text-sm text-gray-700 dark:text-dark-200 line-clamp-2">
               {current_task}
             </span>
           </div>

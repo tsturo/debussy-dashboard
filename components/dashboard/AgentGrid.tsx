@@ -23,8 +23,8 @@ export default function AgentGrid({ agents }: AgentGridProps) {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-      <h2 className="text-xl font-bold text-gray-800 mb-4">Agent Status</h2>
+    <div className="bg-white dark:bg-dark-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-dark-700">
+      <h2 className="text-xl font-bold text-gray-800 dark:text-dark-100 mb-4">Agent Status</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {agents.map((agent) => (
           <AgentStatusCard
