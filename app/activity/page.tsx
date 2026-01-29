@@ -4,119 +4,153 @@ import { ActivityDashboardView } from '@/components/activity';
 import { AgentStatus } from '@/lib/types';
 import { ActivityEvent } from '@/components/activity';
 import { useState, useEffect } from 'react';
+import {
+  ActivityEvent as LibActivityEvent,
+  AgentCurrentStatus,
+  ActivityResponse,
+  AgentStatusResponse
+} from '@/lib/types/activity';
 
-const mockAgents: AgentStatus[] = [
-  {
-    agent: 'conductor',
-    inbox_count: 3,
-    current_task: 'Orchestrating pipeline execution',
-    status: 'running',
-    last_activity: '1m ago',
-  },
-  {
-    agent: 'developer',
-    inbox_count: 1,
-    current_task: 'Implementing activity feed UI components',
-    status: 'running',
-    last_activity: 'just now',
-  },
-  {
-    agent: 'developer2',
-    inbox_count: 0,
-    status: 'idle',
-    last_activity: '15m ago',
-  },
-  {
-    agent: 'tester',
-    inbox_count: 2,
-    current_task: 'Running integration tests',
-    status: 'running',
-    last_activity: '3m ago',
-  },
-  {
-    agent: 'reviewer',
-    inbox_count: 0,
-    status: 'idle',
-    last_activity: '1h ago',
-  },
-  {
-    agent: 'integrator',
-    inbox_count: 1,
-    status: 'idle',
-    last_activity: '30m ago',
-  },
-  {
-    agent: 'architect',
-    inbox_count: 0,
-    status: 'idle',
-    last_activity: '2h ago',
-  },
-];
+function mapAgentCurrentStatusToAgentStatus(status: AgentCurrentStatus): AgentStatus {
+  const mappedStatus = status.status === 'working'
+    ? 'running'
+    : status.status === 'error'
+    ? 'stopped'
+    : status.status;
 
-const mockEvents: ActivityEvent[] = [
-  {
-    id: '1',
-    type: 'task_started',
-    agent: 'developer',
-    message: 'Started implementing activity feed UI components',
-    timestamp: new Date(Date.now() - 60000).toISOString(),
-    metadata: { bead_id: 'debussy-dashboard-tc0' },
-  },
-  {
-    id: '2',
-    type: 'message_sent',
-    agent: 'conductor',
-    message: 'Sent task assignment to developer',
-    timestamp: new Date(Date.now() - 120000).toISOString(),
-    priority: 2,
-  },
-  {
-    id: '3',
-    type: 'task_completed',
-    agent: 'tester',
-    message: 'Completed unit tests for pipeline module',
-    timestamp: new Date(Date.now() - 180000).toISOString(),
-    metadata: { tests_passed: 42, duration: '2.3s' },
-  },
-  {
-    id: '4',
-    type: 'status_change',
-    agent: 'developer2',
-    message: 'Status changed from running to idle',
-    timestamp: new Date(Date.now() - 900000).toISOString(),
-  },
-  {
-    id: '5',
-    type: 'task_started',
-    agent: 'tester',
-    message: 'Started running integration tests',
-    timestamp: new Date(Date.now() - 180000).toISOString(),
-  },
-];
+  return {
+    agent: status.name,
+    inbox_count: status.inboxCount,
+    current_task: status.currentTask,
+    status: mappedStatus as 'idle' | 'running' | 'stopped',
+    last_activity: status.lastActive,
+  };
+}
+
+function mapLibActivityEventToComponentEvent(event: LibActivityEvent): ActivityEvent | null {
+  type ComponentEventType = 'task_started' | 'task_completed' | 'error' | 'status_change' | 'message_sent';
+  let mappedType: ComponentEventType;
+
+  switch (event.type) {
+    case 'task_started':
+      mappedType = 'task_started';
+      break;
+    case 'task_completed':
+      mappedType = 'task_completed';
+      break;
+    case 'error':
+      mappedType = 'error';
+      break;
+    case 'message_sent':
+      mappedType = 'message_sent';
+      break;
+    case 'task_failed':
+      mappedType = 'error';
+      break;
+    case 'message_received':
+      mappedType = 'message_sent';
+      break;
+    case 'bead_created':
+    case 'bead_updated':
+    case 'bead_closed':
+    case 'agent_started':
+    case 'agent_stopped':
+    case 'log':
+      mappedType = 'status_change';
+      break;
+    default:
+      return null;
+  }
+
+  return {
+    id: event.id,
+    type: mappedType,
+    agent: event.agent,
+    message: event.message,
+    timestamp: event.timestamp,
+    metadata: event.metadata,
+  };
+}
 
 export default function ActivityPage() {
-  const [events, setEvents] = useState<ActivityEvent[]>(mockEvents);
-  const [agents, setAgents] = useState<AgentStatus[]>(mockAgents);
+  const [events, setEvents] = useState<ActivityEvent[]>([]);
+  const [agents, setAgents] = useState<AgentStatus[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      const newEvent: ActivityEvent = {
-        id: `event-${Date.now()}`,
-        type: ['task_started', 'task_completed', 'message_sent', 'status_change'][
-          Math.floor(Math.random() * 4)
-        ] as any,
-        agent: ['developer', 'tester', 'conductor', 'reviewer'][
-          Math.floor(Math.random() * 4)
-        ],
-        message: 'New activity event generated',
-        timestamp: new Date().toISOString(),
-      };
+    async function fetchInitialData() {
+      try {
+        const [activityRes, agentsRes] = await Promise.all([
+          fetch('/api/activity?limit=50'),
+          fetch('/api/agents/status'),
+        ]);
 
-      setEvents((prev) => [newEvent, ...prev].slice(0, 20));
-    }, 10000);
+        if (!activityRes.ok || !agentsRes.ok) {
+          throw new Error('Failed to fetch data');
+        }
 
-    return () => clearInterval(interval);
+        const activityData: ActivityResponse = await activityRes.json();
+        const agentsData: AgentStatusResponse = await agentsRes.json();
+
+        const mappedEvents = activityData.events
+          .map(mapLibActivityEventToComponentEvent)
+          .filter((e): e is ActivityEvent => e !== null);
+        setEvents(mappedEvents);
+        setAgents(agentsData.agents.map(mapAgentCurrentStatusToAgentStatus));
+        setIsLoading(false);
+      } catch (err) {
+        console.error('Error fetching data:', err);
+        setError(err instanceof Error ? err.message : 'Unknown error');
+        setIsLoading(false);
+      }
+    }
+
+    fetchInitialData();
+
+    const eventSource = new EventSource('/api/activity/stream');
+
+    eventSource.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+
+        if (data.type === 'activity') {
+          const newEvents = data.events
+            .map(mapLibActivityEventToComponentEvent)
+            .filter((e: ActivityEvent | null): e is ActivityEvent => e !== null);
+          setEvents((prev) => {
+            const merged = [...newEvents, ...prev];
+            const unique = Array.from(new Map(merged.map(e => [e.id, e])).values());
+            return unique.slice(0, 100);
+          });
+        } else if (data.type === 'agents') {
+          setAgents(data.agents.map(mapAgentCurrentStatusToAgentStatus));
+        }
+      } catch (err) {
+        console.error('Error parsing SSE data:', err);
+      }
+    };
+
+    eventSource.onerror = (err) => {
+      console.error('SSE connection error:', err);
+      eventSource.close();
+    };
+
+    return () => {
+      eventSource.close();
+    };
   }, []);
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-dark-950 flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-2">Error</h2>
+          <p className="text-gray-600 dark:text-gray-400">{error}</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-dark-950">

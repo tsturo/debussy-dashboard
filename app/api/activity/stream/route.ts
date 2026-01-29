@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { getAllActivity } from '@/lib/utils/activityParser';
+import { getAllActivity, getAgentStatus } from '@/lib/utils/activityParser';
 
 export const dynamic = 'force-dynamic';
 
@@ -42,6 +42,13 @@ export async function GET(request: NextRequest) {
 
             lastTimestamp = events[0].timestamp;
           }
+
+          const agentStatuses = await getAgentStatus();
+          sendEvent({
+            type: 'agents',
+            agents: agentStatuses,
+            timestamp: new Date().toISOString(),
+          });
         } catch (error) {
           sendEvent({
             type: 'error',
