@@ -3,6 +3,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import { Message, AgentType, AgentMailboxResponse } from '@/lib/types';
 import { VALID_AGENTS, isValidAgent, validateMessage } from '@/lib/utils';
+import { getMailboxPath } from '@/lib/utils/paths';
 
 export async function GET(
   request: NextRequest,
@@ -22,7 +23,7 @@ export async function GET(
       );
     }
 
-    const inboxPath = path.join(process.cwd(), '.claude', 'mailbox', agent, 'inbox');
+    const inboxPath = path.join(getMailboxPath(agent), 'inbox');
 
     const files = await fs.readdir(inboxPath);
     const jsonFiles = files.filter(f => f.endsWith('.json')).sort();

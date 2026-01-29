@@ -3,6 +3,7 @@ import { exec } from 'child_process';
 import { promisify } from 'util';
 import { Bead, BeadStatus, AgentType } from '@/lib/types';
 import { isValidAgent, isValidBeadStatus, isValidBeadType, sanitizeShellArg } from '@/lib/utils';
+import { getProjectPath } from '@/lib/utils/paths';
 
 export const dynamic = 'force-dynamic';
 
@@ -94,6 +95,7 @@ export async function GET(request: NextRequest) {
     }
 
     const { stdout, stderr } = await execAsync(command, {
+      cwd: getProjectPath(),
       timeout: 10000,
       maxBuffer: 1024 * 1024,
     });

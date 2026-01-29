@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { exec } from 'child_process';
 import { promisify } from 'util';
+import { getProjectPath } from '@/lib/utils/paths';
 
 export const dynamic = 'force-dynamic';
 
@@ -79,6 +80,7 @@ function parseBeadStats(output: string): SystemStats {
 export async function GET(request: NextRequest) {
   try {
     const { stdout, stderr } = await execAsync('bd stats', {
+      cwd: getProjectPath(),
       timeout: 10000,
       maxBuffer: 1024 * 1024,
     });

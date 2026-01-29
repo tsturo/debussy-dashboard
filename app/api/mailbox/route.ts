@@ -3,11 +3,12 @@ import fs from 'fs/promises';
 import path from 'path';
 import { Message, AgentMailbox, AgentType, MailboxResponse } from '@/lib/types';
 import { VALID_AGENTS, validateMessage } from '@/lib/utils';
+import { getMailboxPath } from '@/lib/utils/paths';
 
 const AGENT_TYPES = VALID_AGENTS;
 
 async function getAgentMessages(agent: AgentType): Promise<Message[]> {
-  const inboxPath = path.join(process.cwd(), '.claude', 'mailbox', agent, 'inbox');
+  const inboxPath = path.join(getMailboxPath(agent), 'inbox');
 
   try {
     const files = await fs.readdir(inboxPath);

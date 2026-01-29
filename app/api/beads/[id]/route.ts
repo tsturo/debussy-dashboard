@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import { isValidBeadId, sanitizeShellArg, isValidBeadStatus, isValidAgent } from '@/lib/utils';
+import { getProjectPath } from '@/lib/utils/paths';
 
 export const dynamic = 'force-dynamic';
 
@@ -157,6 +158,7 @@ export async function GET(
     }
 
     const { stdout, stderr } = await execAsync(`bd show ${sanitizeShellArg(beadId)}`, {
+      cwd: getProjectPath(),
       timeout: 10000,
       maxBuffer: 1024 * 1024,
     });
@@ -253,6 +255,7 @@ export async function PATCH(
     const sanitizedBeadId = sanitizeShellArg(beadId);
     const command = `bd update ${sanitizedBeadId} ${updates.join(' ')}`;
     const { stdout, stderr } = await execAsync(command, {
+      cwd: getProjectPath(),
       timeout: 10000,
       maxBuffer: 1024 * 1024,
     });
@@ -262,6 +265,7 @@ export async function PATCH(
     }
 
     const { stdout: showStdout } = await execAsync(`bd show ${sanitizedBeadId}`, {
+      cwd: getProjectPath(),
       timeout: 10000,
       maxBuffer: 1024 * 1024,
     });

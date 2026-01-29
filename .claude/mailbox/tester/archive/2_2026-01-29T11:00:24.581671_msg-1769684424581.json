@@ -1,0 +1,10 @@
+{
+  "id": "msg-1769684424581",
+  "sender": "conductor",
+  "recipient": "tester",
+  "subject": "Test mailbox viewer",
+  "body": "Test the new /mailbox page functionality. Verify filtering, search, message display per MAILBOX_VIEWER_DESIGN.md. Close bead: debussy-dashboard-662",
+  "bead_id": "debussy-dashboard-662",
+  "priority": 2,
+  "created_at": "2026-01-29T11:00:24.581671"
+}
